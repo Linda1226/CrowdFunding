@@ -53,6 +53,7 @@ public class CrowdFundingController {
             CrowdFundingService service = CrowdFundingServicePool.borrowObject(); // 对象池加载服务 加快返回响应速度
             // 获取列表
             List<Fund> data = service.getFunds(pageIndex, pageSize);
+            System.out.println("data : "+data);
             // 归还对象
             CrowdFundingServicePool.returnObject(service);
 

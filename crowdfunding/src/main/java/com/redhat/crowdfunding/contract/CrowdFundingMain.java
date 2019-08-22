@@ -24,5 +24,6 @@ public class CrowdFundingMain {
         // 返回地址
         // 部署合约方式三 - 记录地址 config.properties
         System.out.println("[ContractAddress] " + contract.getContractAddress());
+        System.out.println("[ContractAddress] " + contract.getContractBinary());
     }
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="Spring" name="Spring">
-      <configuration />
-    </facet>
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
@@ -15,7 +12,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -26,16 +23,16 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:core:3.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:abi:3.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:utils:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:core:3.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:abi:3.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:utils:3.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.54" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:crypto:3.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:rlp:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:crypto:3.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:rlp:3.4.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.5" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.5" level="project" />
-    <orderEntry type="library" name="Maven: org.web3j:tuples:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.web3j:tuples:3.4.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-unixsocket:0.15" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jnr-ffi:2.1.2" level="project" />
     <orderEntry type="library" name="Maven: com.github.jnr:jffi:1.2.14" level="project" />

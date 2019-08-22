@@ -12,6 +12,8 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tuples.generated.Tuple3;
+import org.web3j.tuples.generated.Tuple5;
 import org.web3j.utils.Convert;
 
 import java.io.File;
@@ -52,7 +54,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
      * @throws Exception
      */
     public int getFundCount() throws Exception {
-        return contract.getFundCount().send().getValue().intValue();
+        return contract.getFundCount().send().intValue();
     }
 
     /**
@@ -66,19 +68,20 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     public List<Fund> getFunds(int pageIndex, int pageSize) throws Exception {
         List<Fund> fList = new ArrayList<Fund>();
         // getFundCount
-        int count = contract.getFundCount().send().getValue().intValue();
+        int count = contract.getFundCount().send().intValue();
         int from = pageIndex * pageSize;
         int to = Math.min((pageIndex + 1) * pageSize, count);
         for (int fundIndex = from; fundIndex < to; fundIndex++) {
             // getFundInfo
-            List<Type> finfo = contract.getFundInfo(fundIndex).send();
+            Tuple5<String, String, BigInteger, BigInteger, Boolean> finfo = contract.getFundInfo(BigInteger.valueOf(fundIndex)).send();
+
             Fund fund = new Fund();
             fund.setFundIndex(fundIndex);
-            fund.setOwner(finfo.get(0).toString());
-            fund.setDesc(finfo.get(1).toString());
-            fund.setGoal(Integer.parseInt(finfo.get(2).getValue().toString()));
-            fund.setCoins(new BigInteger(finfo.get(3).getValue().toString()).divide(Convert.Unit.ETHER.getWeiFactor().toBigInteger()).intValue());
-            fund.setFinished(Boolean.parseBoolean(finfo.get(4).getValue().toString()));
+            fund.setOwner(finfo.getValue1().toString());
+            fund.setDesc(finfo.getValue2().toString());
+            fund.setGoal(Integer.parseInt(finfo.getValue3().toString()));
+            fund.setCoins(new BigInteger(finfo.getValue4().toString()).divide(Convert.Unit.ETHER.getWeiFactor().toBigInteger()).intValue());
+            fund.setFinished(Boolean.parseBoolean(finfo.getValue5().toString()));
             fList.add(fund);
         }
         Collections.reverse(fList); // 按照项目编号降序排序
@@ -95,14 +98,14 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     public List<Record> getRecords(int fundIndex) throws Exception {
         List<Record> rList = new ArrayList<Record>();
         // getRecordCount
-        int count = contract.getRecordCount(fundIndex).send().getValue().intValue();
+        int count = contract.getRecordCount(BigInteger.valueOf(fundIndex)).send().intValue();
         for (int recordIndex = 0; recordIndex < count; recordIndex++) {
             // getRecordInfo
-            List<Type> rinfo = contract.getRecordInfo(fundIndex, recordIndex).send();
+            Tuple3<String, BigInteger, BigInteger> rinfo = contract.getRecordInfo(BigInteger.valueOf(fundIndex), BigInteger.valueOf(recordIndex)).send();
             Record record = new Record();
-            record.setMember(rinfo.get(0).getValue().toString());
-            record.setCoin(new BigInteger(rinfo.get(1).getValue().toString()).divide(Convert.Unit.ETHER.getWeiFactor().toBigInteger()).intValue());
-            record.setTime(Integer.parseInt(rinfo.get(2).getValue().toString()));
+            record.setMember(rinfo.getValue1().toString());
+            record.setCoin(new BigInteger(rinfo.getValue2().toString()).divide(Convert.Unit.ETHER.getWeiFactor().toBigInteger()).intValue());
+            record.setTime(Integer.parseInt(rinfo.getValue3().toString()));
             rList.add(record);
         }
         Collections.reverse(rList); // 按照记录编号降序排序
@@ -119,7 +122,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
     public void raiseFund(String desc, int goal) {
 //        contract.raiseFund(desc, goal).sendAsync(); // 异步请求事务 加快返回响应速度
         try {
-           TransactionReceipt receipt= contract.raiseFund(desc, goal).send();
+           TransactionReceipt receipt= contract.raiseFund(desc, BigInteger.valueOf(goal)).send();
             System.out.println(receipt.getContractAddress()+" "+  receipt.getBlockHash()+"  "+  receipt.toString());
 
         } catch (Exception e) {
@@ -135,6 +138,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
      * @throws Exception
      */
     public void sendCoin(int fundIndex, int coin) {
+
         contract.sendCoin(fundIndex, coin).sendAsync(); // 异步请求事务 加快返回响应速度
     }
 }

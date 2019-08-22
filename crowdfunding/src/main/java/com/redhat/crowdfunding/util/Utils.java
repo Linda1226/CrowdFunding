@@ -20,7 +20,7 @@ public class Utils {
         // 临时文件
         File tmp = null;
         try {
-            tmp = File.createTempFile(Consts.PREFIX, Consts.SUFFIX);
+            tmp = File.createTempFile(Consts.PREFIX, Consts.SUFFIX,new File("/Users/linda/ethereum/chain/keystore/demo"));
             // 自动删除
             tmp.deleteOnExit();
             // 写入内容

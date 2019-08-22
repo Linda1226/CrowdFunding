@@ -5,6 +5,7 @@ import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface CrowdFundingInterface {
     /********** 管理员 **********/
 
     // 获取众筹项目数量
-    public RemoteCall<Uint256> getFundCount();
+    public RemoteCall<BigInteger> getFundCount();
 
     // 获取众筹项目信息
     public RemoteCall<List<Type>> getFundInfo(int fundIndex);

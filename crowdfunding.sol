@@ -1,4 +1,4 @@
-pragma solidity ^0.4.0;
+pragma solidity >=0.4.0<0.6.0;
 
 // 官方文档众筹实现
 // https://solidity.readthedocs.io/en/develop/types.html#structs
@@ -9,7 +9,7 @@ contract CrowdFunding {
     // 众筹项目
     struct Fund {
         // 众筹地址
-        address owner;
+        address payable owner;
         // 众筹描述
         string desc;
         // 众筹目标
@@ -51,7 +51,7 @@ contract CrowdFunding {
     // 获取众筹项目信息
     // 参数：项目编号
     // 返回：众筹地址 众筹描述 众筹目标 已筹金币 是否结束
-    function getFundInfo(uint fundIndex) public view returns (address, string, uint, uint, bool) {
+    function getFundInfo(uint fundIndex) public view returns (address, string memory, uint, uint, bool) {
         Fund storage fund = funds[fundIndex];
         return (fund.owner, fund.desc, fund.goal, fund.coins, fund.finished);
     }
@@ -70,7 +70,7 @@ contract CrowdFunding {
     }
 
     // 为自己发起众筹
-    function raiseFund(string info, uint goal) public {
+    function raiseFund(string memory info, uint goal) public {
         funds.push(Fund(msg.sender, info, goal, 0, false, 0));
     }
 
@@ -85,7 +85,7 @@ contract CrowdFunding {
         // 1 ether = 10^18 wei
 
         // 引用拷贝
-        Fund storage fund = funds[fundIndex];
+        Fund storage  fund = funds[fundIndex];
         require(!fund.finished);
 
         // 转账 失败自动退出
@@ -100,5 +100,5 @@ contract CrowdFunding {
     // 回退函数 防止抛出异常
     // https://solidity.readthedocs.io/en/latest/contracts.html#fallback-function
     // if you want your contract to receive Ether, you have to implement a fallback function.
-    function() public payable { }
+    function()  external payable { }
 }
